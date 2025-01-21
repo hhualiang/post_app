@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:post_app/src/ui/controller/comment_controller.dart';
 import 'package:provider/provider.dart';
-import '../controller/comment_controller.dart';
 
 class CommentScreen extends StatelessWidget {
   final int postId;
 
   const CommentScreen({
-    Key? key,
+    super.key,
     required this.postId,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,9 @@ class CommentScreen extends StatelessWidget {
         title: Text('Comments for Post $postId'),
       ),
       body: controller.isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
           : controller.errorMessage != null
               ? Center(child: Text('Error: ${controller.errorMessage}'))
               : ListView.builder(

@@ -5,15 +5,15 @@ class PostGrid extends StatelessWidget {
   final Function(int postId) onPostTap;
 
   const PostGrid({
-    Key? key,
+    super.key,
     required this.posts,
     required this.onPostTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 8,
         mainAxisSpacing: 8,

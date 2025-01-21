@@ -14,7 +14,11 @@ class CommentRemoteDataSourceImpl implements CommentRemoteDataSource {
   Future<List<CommentDTO>> fetchComments(int postId) async {
     try {
       final result = await _platform.invokeMethod<String>(
-          'fetchComments', {'postId': postId});
+        'fetchComments',
+        {
+          'postId': postId,
+        },
+      );
       if (result == null) {
         throw Exception('No response from the platform.');
       }
