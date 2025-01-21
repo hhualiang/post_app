@@ -5,11 +5,11 @@ import 'package:post_app/src/data/mapper/interface/mapper.dart';
 import 'package:post_app/src/domain/entity/post.dart';
 import 'package:post_app/src/domain/repository/i_post_repository.dart';
 
-class PostRepositoryImpl implements IPostRepository {
+class PostRepository implements IPostRepository {
   final PostRemoteDataSource remoteDataSource;
   final Mapper<PostDTO, Post> mapper;
 
-  PostRepositoryImpl({
+  PostRepository({
     required this.remoteDataSource,
     required this.mapper,
   });
