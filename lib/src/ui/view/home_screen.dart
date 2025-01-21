@@ -38,7 +38,6 @@ class HomeScreen extends StatelessWidget {
                 return Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         'Error: ${controller.errorMessage!}',
@@ -51,7 +50,7 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () {
-                          controller.fetchPosts();  // Trigger a reload
+                          controller.fetchPosts();
                         },
                         child: const Text('Retry'),
                       ),
@@ -75,10 +74,12 @@ class HomeScreen extends StatelessWidget {
               return PostGrid(
                 posts: controller.posts!,
                 onPostTap: (postId) {
+                  final post =
+                      controller.posts!.firstWhere((p) => p.id == postId);
                   Navigator.pushNamed(
                     context,
                     '/comments',
-                    arguments: postId,
+                    arguments: post,
                   );
                 },
               );
