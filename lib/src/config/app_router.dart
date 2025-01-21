@@ -6,6 +6,7 @@ import 'package:post_app/src/data/mapper/impl/comment_mapper.dart';
 import 'package:post_app/src/data/mapper/impl/post_mapper.dart';
 import 'package:post_app/src/data/repository/comment_repository.dart';
 import 'package:post_app/src/data/repository/post_repository.dart';
+import 'package:post_app/src/domain/entity/post.dart';
 import 'package:post_app/src/domain/usecase/usecase_impl/fetch_posts_usecase.dart';
 import 'package:post_app/src/domain/usecase/usecase_interface/i_fetch_comments_usecase.dart';
 import 'package:post_app/src/ui/controller/comment_controller.dart';
@@ -22,9 +23,9 @@ class AppRouter {
           builder: (_) => buildHomeScreen(),
         );
       case '/comments':
-        final postId = settings.arguments as int;
+        final post = settings.arguments as Post;
         return MaterialPageRoute(
-          builder: (_) => buildCommentScreen(postId),
+          builder: (_) => buildCommentScreen(post),
         );
       default:
         return MaterialPageRoute(
@@ -50,7 +51,7 @@ class AppRouter {
     return HomeScreen(controller: postController);
   }
 
-  Widget buildCommentScreen(int postId) {
+  Widget buildCommentScreen(Post post) {
     final commentRemoteDataSource = CommentRemoteDataSourceImpl();
     final commentMapper = CommentMapper();
     final commentRepository = CommentRepository(
@@ -59,10 +60,11 @@ class AppRouter {
     );
     final fetchCommentsUseCase = FetchCommentsUseCaseImpl(commentRepository);
     final commentController = CommentController(fetchCommentsUseCase);
-    commentController.getComments(postId);
+    commentController.getComments(post.id);
+
     return ChangeNotifierProvider(
       create: (_) => commentController,
-      child: CommentScreen(postId: postId),
+      child: CommentScreen(post: post),
     );
   }
 }
